@@ -11,6 +11,7 @@ import UIKit
 class ImagesTableViewCell: UITableViewCell {
     @IBOutlet var imagesView: UIImageView!
     
+    @IBOutlet var urlLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

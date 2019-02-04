@@ -10,7 +10,8 @@ import UIKit
 
 class DataTableViewCell: UITableViewCell {
 
-
+    @IBOutlet var firstImage: UIImageView!
+    
     @IBOutlet var titleLbl: UILabel!
     
     override func awakeFromNib() {

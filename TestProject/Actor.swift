@@ -199,12 +199,13 @@ import UIKit
     let name, surname: String
     let profilePic: String
     let albums: [Album]
+   
 }
 
 public struct Album : Decodable {
     let id: Int
     let title: String
-    let images: [Image]?
+    let images: [Image]
    
 }
 public struct Image: Decodable {

@@ -11,6 +11,7 @@ import UIKit
 class ActorTableViewCell: UITableViewCell {
 
 
+    @IBOutlet var taagsLbl: UILabel!
     @IBOutlet var nameLbl: UILabel!
     @IBOutlet var likesLbl: UILabel!
     @IBOutlet var nameSurnameLbl: UILabel!

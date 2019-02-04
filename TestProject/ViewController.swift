@@ -64,8 +64,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ActorTableViewCell") as? ActorTableViewCell else { return UITableViewCell() }
         
         cell.nameLbl.text = actors[indexPath.row].user.name + "  " + actors[indexPath.row].user.surname
-        cell.nameSurnameLbl.text = actors[indexPath.row].user.name + "  " + actors[indexPath.row].user.surname + "  " + actors[indexPath.row].postTags
-        
+        cell.nameSurnameLbl.text = actors[indexPath.row].user.name + "  " + actors[indexPath.row].user.surname 
+        cell.taagsLbl.text = actors[indexPath.row].postTags
         let member = "\(actors[indexPath.row].postLikes)" + "   Likes"
         cell.likesLbl.text = member
         //cell.nextPage = actors[indexPath.row].user.albums
@@ -106,7 +106,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
             let selectedActor = actors[indexPath.row]
             dVC.selectedActor = selectedActor
-
+            let selectedActor2 = selectedActor.user.albums[indexPath.row]
+            dVC.selectedActor2 = selectedActor2
             self.navigationController!.pushViewController(dVC, animated: true)
     
         }

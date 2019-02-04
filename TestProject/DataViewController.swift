@@ -19,15 +19,10 @@ class DataViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet var dataTableView: UITableView!
 
     var selectedActor: ProfileElement!
-   
+    var selectedActor2: Album!
       override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
-
-//        self.titleLbl1.text = selectedActor.user.albums[self.titleLbl1.tag].title
-//        self.titleLbl2.text = selectedActor.user.albums[self.titleLbl2.tag].title
-//        self.titleLbl3.text = selectedActor.user.albums[self.titleLbl3.tag].images!.url
-
     }
     
     func setupNavigationBar() {
@@ -42,23 +37,32 @@ class DataViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DataTableViewCell") as? DataTableViewCell else { return UITableViewCell() }
         
-        cell.titleLbl.text = selectedActor.user.albums[0].title
-        
+        cell.titleLbl.text = selectedActor.user.albums[indexPath.row].title
+        //cell.titleLbl.text = selectedActor2.images[0].url
+        if let profile_picURL = URL(string: selectedActor2.images[indexPath.row].url) {
+            DispatchQueue.global().async {
+                let data = try? Data(contentsOf: profile_picURL)
+                if let data = data {
+                    let image = UIImage(data: data)
+                    DispatchQueue.main.async {
+                        
+                        cell.firstImage.image = image
+                    }
+                }
+            }
+        }
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let dvC = storyboard.instantiateViewController(withIdentifier:"ImagesViewController") as! ImagesViewController
+        let selectedActor1 = selectedActor.user.albums[indexPath.row]
+        dvC.selectedActor1 = selectedActor1
+        
+        
+        self.navigationController!.pushViewController(dvC, animated: true)
+        
     }
 }
 
-//extension AuteurDetailViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let cell = tableView.cellForRow(at: indexPath) as? FilmTableViewCell else { return }
-//        var film = selectedAuteur.films[indexPath.row]
-//        film.isExpanded = !film.isExpanded
-//        selectedAuteur.films[indexPath.row] = film
-//        cell.moreInfoTextView.text = film.isExpanded ? film.plot : moreInfoText
-//        cell.moreInfoTextView.textAlignment = film.isExpanded ? .left : .center
-//        cell.moreInfoTextView.textColor = film.isExpanded ? UIColor(red:0.75, green:0.75, blue:0.75, alpha:1.0) : .red
-//        tableView.beginUpdates()
-//        tableView.endUpdates()
-//        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-//    }
-//}
